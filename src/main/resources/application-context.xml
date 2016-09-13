@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+                    http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-2.5.xsd">
+
+    <!-- enables annotation based configuration -->
+    <context:annotation-config/>
+
+    <!-- scans for annotated classes in the com.company package -->
+    <context:component-scan base-package="com.galatea"/>
+
+    <!-- allows for ${} replacement in the spring xml configuration from the system.properties file on the classpath -->
+    <context:property-placeholder location="classpath:application.properties"/>
+
+    <!-- creates an activemq connection factory -->
+    <bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="${jms.url}"/>
+        <property name="userName" value="${jms.username}"/>
+        <property name="password" value="${jms.password}"/>
+    </bean>
+
+    <!-- creates an activemq connection factory -->
+
+
+    <!-- CachingConnectionFactory Definition, sessionCacheSize property is the number of sessions to cache -->
+    <bean id="cachedConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <constructor-arg ref="amqConnectionFactory"/>
+        <property name="exceptionListener" ref="jmsExceptionListener"/>
+        <property name="sessionCacheSize" value="100"/>
+    </bean>
+
+    <bean id="singleConnectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+        <constructor-arg ref="amqConnectionFactory"/>
+    </bean>
+
+    <bean id="browsingQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="browsing.queue"/>
+    </bean>
+
+    <!-- JmsTemplate Definition -->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <!--<constructor-arg ref="singleConnectionFactory"/>-->
+        <constructor-arg ref="cachedConnectionFactory"/>
+        <property name="defaultDestination" ref="browsingQueue"/>
+    </bean>
+
+    <bean id="jmsTemplateCached" class="org.springframework.jms.core.JmsTemplate">
+        <constructor-arg ref="cachedConnectionFactory"/>
+        <property name="defaultDestination" ref="browsingQueue"/>
+    </bean>
+
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="5"/>
+        <property name="maxPoolSize" value="10"/>
+        <property name="queueCapacity" value="25"/>
+    </bean>
+
+    <bean id="LowLevelBrowserController" class="com.galatea.queueing.poj.browsers.ClientMessageListenerManager">
+        <constructor-arg ref="amqConnectionFactory"/>
+        <constructor-arg ref="jmsTemplate"/>
+    </bean>
+
+    <!--
+    Message Producing Beans
+    -->
+    <bean id="messageGenerator" class="com.galatea.queueing.spring.MessageGenerator">
+        <constructor-arg ref="queueSender"/>
+    </bean>
+
+    <bean id="queueSender" class="com.galatea.queueing.spring.QueueSender">
+        <constructor-arg ref="jmsTemplateCached"/>
+    </bean>
+</beans>
