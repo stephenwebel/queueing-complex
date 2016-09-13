@@ -59,7 +59,7 @@
         <property name="queueCapacity" value="25"/>
     </bean>
 
-    <bean id="LowLevelBrowserController" class="com.galatea.queueing.poj.browsers.ClientMessageListenerManager">
+    <bean id="LowLevelBrowserController" class="com.webel.queueing.poj.browsers.ClientMessageListenerManager">
         <constructor-arg ref="amqConnectionFactory"/>
         <constructor-arg ref="jmsTemplate"/>
     </bean>
@@ -67,11 +67,11 @@
     <!--
     Message Producing Beans
     -->
-    <bean id="messageGenerator" class="com.galatea.queueing.spring.MessageGenerator">
+    <bean id="messageGenerator" class="com.webel.queueing.spring.MessageGenerator">
         <constructor-arg ref="queueSender"/>
     </bean>
 
-    <bean id="queueSender" class="com.galatea.queueing.spring.QueueSender">
+    <bean id="queueSender" class="com.webel.queueing.spring.QueueSender">
         <constructor-arg ref="jmsTemplateCached"/>
     </bean>
 </beans>

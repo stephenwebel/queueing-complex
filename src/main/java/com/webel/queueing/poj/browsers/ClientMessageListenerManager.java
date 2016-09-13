@@ -1,7 +1,7 @@
-package com.galatea.queueing.poj.browsers;
+package com.webel.queueing.poj.browsers;
 
 
-import com.galatea.queueing.poj.consumers.MyMessageListenerContainer;
+import com.webel.queueing.poj.consumers.MyMessageListenerContainer;
 
 import javax.jms.*;
 import java.util.Enumeration;

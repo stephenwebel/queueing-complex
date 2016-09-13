@@ -1,4 +1,4 @@
-package com.galatea.queueing.poj.consumers;
+package com.webel.queueing.poj.consumers;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

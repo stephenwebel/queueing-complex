@@ -1,6 +1,6 @@
-package com.galatea.queueing.spring;
+package com.webel.queueing.spring;
 
-import com.galatea.queueing.poj.browsers.ClientMessageListenerManager;
+import com.webel.queueing.poj.browsers.ClientMessageListenerManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;

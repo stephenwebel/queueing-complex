@@ -1,4 +1,4 @@
-package com.galatea.queueing.spring;
+package com.webel.queueing.spring;
 
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;

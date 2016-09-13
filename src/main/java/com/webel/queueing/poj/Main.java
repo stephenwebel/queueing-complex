@@ -1,10 +1,10 @@
-package com.galatea.queueing.poj;
+package com.webel.queueing.poj;
 
-import com.galatea.queueing.poj.browsers.ClientMessageListenerManager;
-import com.galatea.queueing.poj.browsers.DepthBasedTimer;
-import com.galatea.queueing.poj.consumers.MyMessageListenerContainer;
-import com.galatea.queueing.poj.producers.Messenger;
-import com.galatea.queueing.poj.producers.TextMessageFactory;
+import com.webel.queueing.poj.browsers.ClientMessageListenerManager;
+import com.webel.queueing.poj.browsers.DepthBasedTimer;
+import com.webel.queueing.poj.consumers.MyMessageListenerContainer;
+import com.webel.queueing.poj.producers.Messenger;
+import com.webel.queueing.poj.producers.TextMessageFactory;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;

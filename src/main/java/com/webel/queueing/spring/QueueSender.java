@@ -1,4 +1,4 @@
-package com.galatea.queueing.spring;
+package com.webel.queueing.spring;
 
 /**
  * Created by swebel on 8/25/2016.

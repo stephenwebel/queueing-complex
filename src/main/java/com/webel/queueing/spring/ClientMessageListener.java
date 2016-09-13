@@ -1,4 +1,4 @@
-package com.galatea.queueing.spring;
+package com.webel.queueing.spring;
 
 import javax.jms.JMSException;
 import javax.jms.Message;

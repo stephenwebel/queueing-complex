@@ -1,4 +1,4 @@
-package com.galatea.queueing.poj.consumers;
+package com.webel.queueing.poj.consumers;
 
 import javax.jms.JMSException;
 import javax.jms.Message;

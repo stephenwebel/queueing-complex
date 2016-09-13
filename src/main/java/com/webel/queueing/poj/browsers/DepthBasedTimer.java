@@ -1,4 +1,4 @@
-package com.galatea.queueing.poj.browsers;
+package com.webel.queueing.poj.browsers;
 
 import org.springframework.util.StopWatch;
 
